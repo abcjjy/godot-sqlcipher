@@ -64,3 +64,5 @@ vsproj/x86/
 vsproj/gdsqlite.vcxproj.*
 
 .vscode
+
+bin

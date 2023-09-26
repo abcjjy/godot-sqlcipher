@@ -5,6 +5,8 @@ compatibility_minimum = 4.1
 
 [libraries]
 
+ios = "res://addons/godot-sqlite/bin/libgdsqlite.ios.template_debug.universal.dylib"
+ios.template_release = "res://addons/godot-sqlite/bin/libgdsqlite.ios.template_release.universal.dylib"
 macos = "res://addons/godot-sqlite/bin/libgdsqlite.macos.template_debug.framework"
 macos.template_release = "res://addons/godot-sqlite/bin/libgdsqlite.macos.template_release.framework"
 windows.x86_64 = "res://addons/godot-sqlite/bin/libgdsqlite.windows.template_debug.x86_64.dll"
@@ -18,6 +20,8 @@ android.template_release.x86_64 = "res://addons/godot-sqlite/bin/libgdsqlite.and
 
 [dependencies]
 
+ios = {}
+ios.template_release = {}
 macos = {}
 macos.template_release = {}
 windows.x86_64 = {}

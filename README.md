@@ -1,3 +1,5 @@
+This repo uses SQLCipher instead of SQLite. It is only tested on iOS and MacOS.
+
 ***NOTE**: This branch is compatible with Godot 4.x. Older versions of Godot (3.x) are supported on the `master`-branch as found [here](https://github.com/2shady4u/godot-sqlite/tree/master).*
 
 ![Godot SQLite banner](icon/godot-sqlite-banner-4.x.png?raw=true "Godot SQLite Banner")

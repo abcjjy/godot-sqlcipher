@@ -21,7 +21,13 @@ target = "{}{}".format(
 
 # tweak this if you want to use different folders, or more folders, to store your source code in.
 env.Append(CPPPATH=["src/"])
+env.Append(CFLAGS=['-DSQLITE_HAS_CODEC', '-DSQLITE_THREADSAFE=1', '-DSQLITE_TEMP_STORE=2', 
+                   '-DSQLCIPHER_CRYPTO_CC', '-DSQLITE_OS_UNIX=1'
+                   ])
 sources = [Glob('src/*.cpp'), Glob('src/vfs/*.cpp'), 'src/sqlite/sqlite3.c']
+
+if env['platform'] in ['macos', 'ios']:
+    env.Append(LINKFLAGS=['-framework', 'Security', '-framework', 'Foundation'])
 
 if env["platform"] == "macos":
     target = "{}.{}.{}.framework/{}.{}.{}".format(
