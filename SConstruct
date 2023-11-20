@@ -45,5 +45,9 @@ else:
         env["SHLIBSUFFIX"]
     )
 
+if env['platform'] == 'ios':
+    env.Append(CCFLAGS=['-miphoneos-version-min=10.0'])
+    env.Append(LINKFLAGS=["-miphoneos-version-min=10.0"])
+
 library = env.SharedLibrary(target=target, source=sources)
 Default(library)
