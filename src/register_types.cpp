@@ -15,6 +15,7 @@ void initialize_sqlite_module(ModuleInitializationLevel p_level) {
 		return;
 	}
 
+    printf("SQLite register_class\n");
 	ClassDB::register_class<SQLite>();
 }
 
@@ -29,6 +30,7 @@ extern "C" {
 // Initialization.
 
 GDExtensionBool GDE_EXPORT sqlite_library_init(GDExtensionInterfaceGetProcAddress p_get_proc_address, const GDExtensionClassLibraryPtr p_library, GDExtensionInitialization *r_initialization) {
+    printf("SQLite init\n");
     godot::GDExtensionBinding::InitObject init_obj(p_get_proc_address, p_library, r_initialization);
 
     init_obj.register_initializer(initialize_sqlite_module);

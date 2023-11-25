@@ -26,6 +26,10 @@ env.Append(CFLAGS=['-DSQLITE_HAS_CODEC', '-DSQLITE_THREADSAFE=1', '-DSQLITE_TEMP
                    ])
 sources = [Glob('src/*.cpp'), Glob('src/vfs/*.cpp'), 'src/sqlite/sqlite3.c']
 
+if env['platform'] == 'ios':
+    env.Append(CCFLAGS=["-miphoneos-version-min=" + env["ios_min_version"]])
+    env.Append(LINKFLAGS=["-miphoneos-version-min=" + env["ios_min_version"]])
+
 if env['platform'] in ['macos', 'ios']:
     env.Append(LINKFLAGS=['-framework', 'Security', '-framework', 'Foundation'])
 
@@ -38,16 +42,24 @@ if env["platform"] == "macos":
         env["platform"],
         env["target"]
     )
+    library = env.SharedLibrary(target=target, source=sources)
+elif env["platform"] == "ios":
+    if env["ios_simulator"]:
+        library = env.StaticLibrary(
+            f"{target}.{env['platform']}.{env['target']}.simulator.a",
+            source=sources,
+        )
+    else:
+        library = env.StaticLibrary(
+            f"{target}.{env['platform']}.{env['target']}.a",
+            source=sources,
+        )
 else:
     target = "{}{}{}".format(
         target,
         env["suffix"],
         env["SHLIBSUFFIX"]
     )
+    library = env.SharedLibrary(target=target, source=sources)
 
-if env['platform'] == 'ios':
-    env.Append(CCFLAGS=['-miphoneos-version-min=10.0'])
-    env.Append(LINKFLAGS=["-miphoneos-version-min=10.0"])
-
-library = env.SharedLibrary(target=target, source=sources)
 Default(library)
