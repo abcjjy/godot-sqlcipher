@@ -22,7 +22,7 @@ target = "{}{}".format(
 # tweak this if you want to use different folders, or more folders, to store your source code in.
 env.Append(CPPPATH=["src/"])
 env.Append(CFLAGS=['-DSQLITE_HAS_CODEC', '-DSQLITE_THREADSAFE=1', '-DSQLITE_TEMP_STORE=2', 
-                   '-DSQLCIPHER_CRYPTO_CC', '-DSQLITE_OS_UNIX=1'
+                   '-DSQLITE_OS_UNIX=1'
                    ])
 sources = [Glob('src/*.cpp'), Glob('src/vfs/*.cpp'), 'src/sqlite/sqlite3.c']
 
@@ -31,7 +31,22 @@ if env['platform'] == 'ios':
     env.Append(LINKFLAGS=["-miphoneos-version-min=" + env["ios_min_version"]])
 
 if env['platform'] in ['macos', 'ios']:
+    env.Append(CFLAGS=['-DSQLCIPHER_CRYPTO_CC'])
     env.Append(LINKFLAGS=['-framework', 'Security', '-framework', 'Foundation'])
+
+if env["platform"] == "android":
+    arch_map = {
+        'arm32': 'android-arm',
+        'arm64': 'android-arm64',
+        'x86_32': 'android-x86',
+        'x86_64': 'android-x86_64',
+    }
+    openssl = os.path.join('openssl', arch_map[env['arch']])
+    env.Append(CCFLAGS=[f'-I{openssl}/include', '-DSQLCIPHER_CRYPTO_OPENSSL'])
+    env.Append(LINKFLAGS=[f'-L{openssl}/lib', # openssl lib path
+                            '-lcrypto', # link openssl
+                            '-llog', # why it needs to link log?
+                            ])
 
 if env["platform"] == "macos":
     target = "{}.{}.{}.framework/{}.{}.{}".format(

@@ -66,3 +66,5 @@ vsproj/gdsqlite.vcxproj.*
 .vscode
 
 bin
+openssl
+sqlcipher
