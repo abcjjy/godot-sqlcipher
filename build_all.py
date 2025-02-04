@@ -9,7 +9,7 @@ import argparse
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('-V', '--sqlcipher-version', default='v4.5.5')
-    ap.add_argument('-s', '--openssl', default='openssl/android-arm64')
+    ap.add_argument('-s', '--openssl', default='openssl/build/android-arm64')
     ap.add_argument('-L', '--skip-build-library', action='store_true')
     ap.add_argument('-p', '--platform', default='android', choices=['ios', 'android', 'macos'])
     ap.add_argument('-a', '--arch', nargs='+', default=['arm64', 'x86_64'])
