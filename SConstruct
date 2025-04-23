@@ -41,7 +41,7 @@ if env["platform"] == "android":
         'x86_32': 'android-x86',
         'x86_64': 'android-x86_64',
     }
-    openssl = os.path.join('openssl', arch_map[env['arch']])
+    openssl = os.path.join('openssl/build', arch_map[env['arch']])
     env.Append(CCFLAGS=[f'-I{openssl}/include', '-DSQLCIPHER_CRYPTO_OPENSSL'])
     env.Append(LINKFLAGS=[f'-L{openssl}/lib', # openssl lib path
                             '-lcrypto', # link openssl

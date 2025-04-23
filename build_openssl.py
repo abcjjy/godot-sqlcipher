@@ -11,6 +11,7 @@ def main():
     ap.add_argument('-V', '--version', default='openssl-3.4.0')
     ap.add_argument('-a', '--api-version', default=21, type=int)
     ap.add_argument('-i', '--install-dir', default='build')
+    ap.add_argument('-A', '--archs', help='comma separated list: android-arm64, android-arm, android-x86_64, android-x86')
 
     args = ap.parse_args()
 
@@ -25,8 +26,12 @@ def main():
 
     toolchain = os.path.join(ndk, 'toolchains/llvm/prebuilt', host_tag, 'bin')
     os.environ['PATH'] = ':'.join([toolchain, os.environ['PATH']])
+
+    archs = ['android-arm64', 'android-arm', 'android-x86_64', 'android-x86']
+    if args.archs:
+        archs = args.archs.split(',')
     
-    for tarch in ['android-arm64', 'android-arm', 'android-x86_64', 'android-x86']:
+    for tarch in archs:
         outdir = os.path.abspath(os.path.join(args.install_dir, tarch))
         os.makedirs(outdir, exist_ok=True)
         run('make clean')

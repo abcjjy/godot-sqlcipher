@@ -32,7 +32,11 @@ windows.debug.x86_64 = {}
 windows.release.x86_64 = {}
 linux.debug.x86_64 = {}
 linux.release.x86_64 = {}
-android.debug.arm64 = {}
-android.release.arm64 = {}
+android.debug.arm64 = {
+  "res://addons/godot-sqlite/bin/openssl/android-arm64/lib/libcrypto.so": ""
+}
+android.release.arm64 = {
+  "res://addons/godot-sqlite/bin/openssl/android-arm64/lib/libcrypto.so": ""
+}
 android.debug.x86_64 = {}
 android.release.x86_64 = {}
