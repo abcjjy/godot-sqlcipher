@@ -10,7 +10,7 @@ rm -rf $dst/libgodot-cpp.ios.$1.xcframework
 #scons arch=universal ios_simulator=yes platform=ios target=$1 $2
 if [ $1 == "template_debug" ]
     then
-        scons arch=arm64 ios_simulator=no platform=ios debug_symbols=yes target=$1 $2
+        scons arch=arm64 ios_simulator=no platform=ios target=$1 $2
     else
         scons arch=arm64 ios_simulator=no platform=ios target=$1 $2
 fi
