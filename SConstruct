@@ -46,7 +46,12 @@ if env["platform"] == "android":
     env.Append(LINKFLAGS=[f'-L{openssl}/lib', # openssl lib path
                             '-lcrypto', # link openssl
                             '-llog', # why it needs to link log?
+                            '-Wl,--build-id',
                             ])
+
+    if env['target'] == 'template_release':
+        env.Append(CCFLAGS=['-g2'])
+        env['LINKFLAGS'] = [flag for flag in env['LINKFLAGS'] if flag != '-s']
 
 if env["platform"] == "macos":
     target = "{}.{}.{}.framework/{}.{}.{}".format(
